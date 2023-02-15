@@ -33,3 +33,14 @@ class Dish(db.Model):
     # TODO: convert ingredients to list, skipping for now to simplify testing
     ingredients = db.Column(db.String)
     order_items = db.relationship("OrderItem", backref="dish")
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "price": self.price,
+            "hot_or_cold": self.hot_or_cold.value,
+            "category": self.category.value,
+            "ingredients": self.ingredients,
+        }

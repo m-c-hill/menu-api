@@ -3,8 +3,6 @@ Model for orders placed using the menu. Order items hold a specified quantity of
 containing any number of order items.
 """
 
-import enum
-
 from cafe_menu_backend.extensions import db
 from sqlalchemy.sql import func
 
