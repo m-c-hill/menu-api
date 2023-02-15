@@ -31,8 +31,9 @@ def create_order():
     """
     body = request.get_json()
     try:
-        order = order_service.process_new_order(body["order"])
-        return 
+        new_order = order_service.process_new_order(body["order"])
+        db.session.add(new_order)
+        db.session.commit()
     except:
         abort(422)
 

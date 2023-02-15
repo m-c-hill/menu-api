@@ -136,10 +136,21 @@ def new_dish_response() -> dict:
     }
 
 
-# TODO
 @pytest.fixture(scope="module")
 def order_one() -> dict:
-    pass
+    return {
+        "customer_id": 1,
+        "created_at": "2023-01-05 23:55:59",
+        "total_price": 18.97,
+        "payment_complete": True,
+        "order_cancelled": False,
+        "order_fulfilled": False,
+        "order_items": [
+            {"id": 1, "quantity": 1, "dish_id": 2, "dish_name": "Burger"},
+            {"id": 2, "quantity": 2, "dish_id": 3, "dish_name": "Chips"},
+            {"id": 3, "quantity": 1, "dish_id": 4, "dish_name": "Ice cream"},
+        ],
+    }
 
 
 # TODO

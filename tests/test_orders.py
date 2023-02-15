@@ -33,4 +33,12 @@ def test_cancel_order(client, cancelled_order_response):
 
     assert response.status_code == 200
     assert response_json["success"] == True
-    assert response_json["cancelled_order"] == cancelled_order_response
+    assert response_json["cancelled_order"]["order_cancelled"] == True
+
+    # Check the order was definitely cancelled
+    response = client.get("api/v1.0/orders/1")
+    response_json = response.get_json()
+
+    assert response.status_code == 200
+    assert response_json["success"] == True
+    assert response_json["order"]["order_cancelled"] == True

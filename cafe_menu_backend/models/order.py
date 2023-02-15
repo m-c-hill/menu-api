@@ -23,7 +23,7 @@ class Order(db.Model):
     def to_dict(self) -> dict:
         return {
             "customer_id": self.customer_id,
-            "created_at": self.created_at,
+            "created_at": self.created_at.strftime("%Y-%m-%d %H:%M:%S"),
             "total_price": self.total_price,
             "payment_complete": self.payment_complete,
             "order_cancelled": self.order_cancelled,

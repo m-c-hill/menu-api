@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from cafe_menu_backend.extensions import db
 from cafe_menu_backend.models import Customer, Dish, Order, OrderItem
 
@@ -59,7 +61,12 @@ def insert_test_data():
     #  Place a dummy order
     # ===============================
 
-    order = Order(customer=customer, total_price=18.97, payment_complete=True)
+    order = Order(
+        customer=customer,
+        total_price=18.97,
+        payment_complete=True,
+        created_at=datetime(2023, 1, 5, 23, 55, 59, 342380),
+    )
     order_item_1 = OrderItem(dish=burger, quantity=1)
     order_item_2 = OrderItem(dish=chips, quantity=2)
     order_item_3 = OrderItem(dish=ice_cream, quantity=1)

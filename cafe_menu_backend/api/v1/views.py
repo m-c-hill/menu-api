@@ -29,5 +29,5 @@ blueprint.add_url_rule(
 blueprint.add_url_rule("/orders/<int:order_id>", "order_by_id", orders.get_order_by_id)
 blueprint.add_url_rule("/orders", "create_order", orders.create_order, methods=["POST"])
 blueprint.add_url_rule(
-    "/orders", "cancel_order", orders.cancel_order, methods=["PATCH"]
+    "/orders/<int:order_id>", "cancel_order", orders.cancel_order, methods=["PATCH"]
 )
