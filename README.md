@@ -138,6 +138,7 @@ Response:
 
 ### Potential Improvements
 
+- Add marshmallow schemas to validate post request bodies
 - Database migration is not currently set up in the Docker container (tables are not created when running through a container). Should be a quick fix (with `manage.py`) but ran out of time. The app can also be run locally with `flask run`.
 - Set up different user groups (customer, waiter, restaurant owner) and add authentication to endpoints to ensure customers cannot add items to the menu, and that customers cannot cancel orders that do not belong to them.
 - Add Swagger documentation.

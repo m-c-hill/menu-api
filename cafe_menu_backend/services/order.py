@@ -54,11 +54,9 @@ def _calculate_total_price(order_items: list[OrderItem]) -> float:
     """
     Calculate the total price of the order
     """
-    total_price = 0.0
-    for order_item in order_items:
-        total_price += order_item.dish.price * order_item.quantity
-
-    return total_price
+    return sum(
+        order_item.dish.price * order_item.quantity for order_item in order_items
+    )
 
 
 def _get_dish(dish_id: int) -> Dish:
