@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 
 from cafe_menu_backend.app import create_app
@@ -153,19 +155,27 @@ def order_one() -> dict:
     }
 
 
-# TODO
 @pytest.fixture(scope="module")
 def new_order() -> dict:
-    pass
+    return {
+        "customer_id": 1,
+        "order_items": [{"dish_id": 1, "quantity": 2}, {"dish_id": 4, "quantity": 5}],
+        "payment_complete": False,
+        "created_at": datetime(2023, 2, 5, 23, 55, 59, 342380),
+    }
 
 
-# TODO
 @pytest.fixture(scope="module")
 def new_order_response() -> dict:
-    pass
-
-
-# TODO
-@pytest.fixture(scope="module")
-def cancelled_order_response() -> dict:
-    pass
+    return {
+        "created_at": "2023-02-05 23:55:59",
+        "customer_id": 1,
+        "order_cancelled": False,
+        "order_fulfilled": False,
+        "order_items": [
+            {"dish_id": 1, "dish_name": "Pizza", "id": 4, "quantity": 2},
+            {"dish_id": 4, "dish_name": "Ice cream", "id": 5, "quantity": 5},
+        ],
+        "payment_complete": False,
+        "total_price": 51.93000000000001,
+    }

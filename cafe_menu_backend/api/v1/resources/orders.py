@@ -30,10 +30,11 @@ def create_order():
     Create a new order
     """
     body = request.get_json()
+
     try:
-        new_order = order_service.process_new_order(body["order"])
-        db.session.add(new_order)
-        db.session.commit()
+        new_order = order_service.process_new_order(body)
+        return jsonify({"success": True, "new_order": new_order.to_dict()}), 201
+
     except:
         abort(422)
 
