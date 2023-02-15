@@ -1,0 +1,34 @@
+"""
+Model for dishes listed on the menu
+"""
+
+import enum
+
+from cafe_menu_backend.extensions import db
+
+
+class TemperatureEnum(enum.Enum):
+    hot = "hot"
+    cold = "cold"
+
+
+class CategoryEnum(enum.Enum):
+    starters = "starters"
+    mains = "mains"
+    specials = "specials"
+    sides = "sides"
+    desserts = "desserts"
+    drinks = "drinks"
+
+
+class Dish(db.Model):
+    __tablename__ = "dish"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    description = db.Column(db.String)
+    price = db.Column(db.Float)
+    hot_or_cold = db.Column(db.Enum(TemperatureEnum))
+    category = db.Column(db.Enum(CategoryEnum))
+    ingredients = db.Column(db.String)
+    order_items = db.relationship("OrderItem", backref="dish")

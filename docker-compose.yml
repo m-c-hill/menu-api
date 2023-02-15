@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  web:
+    image: cafe_menu_backend
+    build: .
+    command: flask run --host 0.0.0.0 --port 5000 --debugger
+    env_file:
+      - ./.env
+    environment:
+      - DATABASE_URI=sqlite:////instance/cafe_menu_backend_development.db
+    volumes:
+      - ./cafe_menu_backend:/code/cafe_menu_backend
+      - ./instance/:/instance/
+    ports:
+      - "5000:5000"
