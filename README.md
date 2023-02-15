@@ -16,6 +16,8 @@ Menu REST API built using Flask, allowing customers to browse a list of dishes, 
 
 Run `docker compose up -d` and access the server through [localhost:5000/api/v1.0](http://127.0.0.1:5000/api/v1.0/).
 
+Alternatively, the app can be run locally without a container using `flask run`, still accessed through port 5000.
+
 ### Run the tests
 
 All tests can be found in the `test` directory. To run the tests, simply run:
@@ -39,9 +41,7 @@ tests/test_orders.py ....                [100%]
 ============ 13 passed ============
 ```
 
-## REST API
-
-### Documentation
+### API Documentation
 
 #### Dishes
 
@@ -52,14 +52,15 @@ tests/test_orders.py ....                [100%]
 `GET /dishes/<int:dish_id>`: Retrieve a dish by id.
 
 `POST /dishes`: Add a new dish to the menu by submitting data with the following structure:
+
 ```json
 {
-    "name": "Sushi",
-    "description": "Fresh salmon in rice and nori",
-    "price": 11.29,
-    "hot_or_cold": "cold",
-    "category": "mains",
-    "ingredients": "Salmon, rice, nori",
+  "name": "Sushi",
+  "description": "Fresh salmon in rice and nori",
+  "price": 11.29,
+  "hot_or_cold": "cold",
+  "category": "mains",
+  "ingredients": "Salmon, rice, nori"
 }
 ```
 
@@ -70,14 +71,74 @@ tests/test_orders.py ....                [100%]
 `GET /orders/<int:order_id>`: Retrieve an order by id
 
 `POST /orders`: Create a new order by submitting data with the following structure:
+
 ```json
 {
-    "customer_id": 1,
-    "order_items": [
-        { "dish_id": 1, "quantity": 2 },
-        { "dish_id": 4, "quantity": 5 }
-    ]
+  "customer_id": 1,
+  "order_items": [
+    { "dish_id": 1, "quantity": 2 },
+    { "dish_id": 4, "quantity": 5 }
+  ]
 }
 ```
 
 `PATCH /orders/<int:order_id>`: Cancel an order by id
+
+### Example Requests
+
+#### GET /dishes/4
+
+Request:
+
+```bash
+curl http://127.0.0.1:5000/api/v1.0/dish/4
+```
+
+Response:
+
+```json
+{
+  "dish": {
+    "category": "desserts",
+    "description": "Selection of chocolate and vanilla ice cream",
+    "hot_or_cold": "cold",
+    "id": 4,
+    "ingredients": "Ice cream, wafer, chocolate sauce",
+    "name": "Ice cream",
+    "price": 5.99
+  },
+  "success": true
+}
+```
+
+#### POST /dishes
+
+Request:
+
+```bash
+curl http://127.0.0.1:5000/api/v1.0/dish -X POST -H "Content-Type: application/json" -d '{ "name": "Sushi", "description": "Fresh salmon in rice and nori", "price": 11.29, "hot_or_cold": "cold", "category": "mains", "ingredients": "Salmon, rice, nori"}'
+```
+
+Response:
+
+```json
+{
+  "dish": {
+    "category": "mains",
+    "description": "Fresh salmon in rice and nori",
+    "hot_or_cold": "cold",
+    "id": 5,
+    "ingredients": "Salmon, rice, nori",
+    "name": "Sushi",
+    "price": 11.29
+  },
+  "success": true
+}
+```
+
+### Potential Improvements
+
+- Database migration is not currently set up in the Docker container (tables are not created when running through a container). Should be a quick fix (with `manage.py`) but ran out of time. The app can also be run locally with `flask run`.
+- Set up different user groups (customer, waiter, restaurant owner) and add authentication to endpoints to ensure customers cannot add items to the menu, and that customers cannot cancel orders that do not belong to them.
+- Add Swagger documentation.
+- Create a separate ingredients table to store ingredients, link to dishes by ID through an association table.
