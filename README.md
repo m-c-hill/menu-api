@@ -2,7 +2,7 @@
 
 Menu REST API built using Flask, allowing customers to browse a list of dishes, filter them by category and place orders.
 
-## Key Dependencies
+### Key Dependencies
 
 - [Flask](http://flask.pocoo.org/) is a lightweight backend microservices framework. Flask is required to handle requests and responses for our REST API.
 
@@ -12,16 +12,16 @@ Menu REST API built using Flask, allowing customers to browse a list of dishes, 
 
 - [Pytest](https://docs.pytest.org/en/7.1.x/contents.html) was used as the testing framework for this project.
 
-## Start the API
+### Run the app
 
 Run `docker compose up -d` and access the server through [localhost:5000/api/v1.0](http://127.0.0.1:5000/api/v1.0/).
 
-### Testing
+### Run the tests
 
 All tests can be found in the `test` directory. To run the tests, simply run:
 
 ```bash
-python -m pytest
+./run-tests.sh
 ```
 
 Example output:
@@ -39,5 +39,45 @@ tests/test_orders.py ....                [100%]
 ============ 13 passed ============
 ```
 
-README IN PROGRESS
+## REST API
 
+### Documentation
+
+#### Dishes
+
+`GET /dishes`: Retrieve a complete list of all dishes on the menu.
+
+`GET /dishes/category/<string:category_name>`: Retrieve a list of dishes by category name. Categories include: `starters, mains, specials, sides, desserts, drinks`.
+
+`GET /dishes/<int:dish_id>`: Retrieve a dish by id.
+
+`POST /dishes`: Add a new dish to the menu by submitting data with the following structure:
+```json
+{
+    "name": "Sushi",
+    "description": "Fresh salmon in rice and nori",
+    "price": 11.29,
+    "hot_or_cold": "cold",
+    "category": "mains",
+    "ingredients": "Salmon, rice, nori",
+}
+```
+
+`DELETE /dishes/<int:dish_id>`: Delete a dish by id.
+
+#### Orders
+
+`GET /orders/<int:order_id>`: Retrieve an order by id
+
+`POST /orders`: Create a new order by submitting data with the following structure:
+```json
+{
+    "customer_id": 1,
+    "order_items": [
+        { "dish_id": 1, "quantity": 2 },
+        { "dish_id": 4, "quantity": 5 }
+    ]
+}
+```
+
+`PATCH /orders/<int:order_id>`: Cancel an order by id
