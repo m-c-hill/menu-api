@@ -1,3 +1,3 @@
-from user import user_schema
+from cafe_menu_backend.schemas.customer import customer_schema
 
-__all__ = [user_schema]
+__all__ = [customer_schema]

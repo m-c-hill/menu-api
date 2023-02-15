@@ -1,6 +1,9 @@
 """
-Model for orders placed using the menu. Order items hold a specified quantity of a single dish, with an order containing any number of order items.
+Model for orders placed using the menu. Order items hold a specified quantity of a single dish, with an order
+containing any number of order items.
 """
+
+import enum
 
 from cafe_menu_backend.extensions import db
 from sqlalchemy.sql import func
@@ -13,8 +16,9 @@ class Order(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"))
     created_at = db.Column(db.DateTime, server_default=func.now())
     total_price = db.Column(db.Float)
-    payment_complete = db.Column(db.Bool)
-    order_fulfilled = db.Column(db.Bool)
+    payment_complete = db.Column(db.Boolean, default=False)
+    order_cancelled = db.Column(db.Boolean, default=False)
+    order_fulfilled = db.Column(db.Boolean, default=False)
     order_items = db.relationship("OrderItem", backref="order")
 
 
@@ -24,5 +28,4 @@ class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("order.id"))
     quantity = db.Column(db.Integer)
-    price = db.Column(db.Float)
     dish_id = db.Column(db.Integer, db.ForeignKey("dish.id"))

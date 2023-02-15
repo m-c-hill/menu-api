@@ -5,7 +5,7 @@ from flask import Flask
 from cafe_menu_backend import api
 from cafe_menu_backend.config import config
 from cafe_menu_backend.extensions import db, migrate
-from cafe_menu_backend.models import User
+from cafe_menu_backend.models import Customer, Dish, Order, OrderItem
 
 
 def create_app(config_name: str = os.getenv("FLASK_CONFIG") or "default"):
@@ -17,9 +17,6 @@ def create_app(config_name: str = os.getenv("FLASK_CONFIG") or "default"):
 
     configure_extensions(app)
     register_blueprints(app)
-
-    # with app.app_context():
-    #     db.create_all()
 
     return app
 

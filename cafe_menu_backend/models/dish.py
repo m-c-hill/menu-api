@@ -30,5 +30,6 @@ class Dish(db.Model):
     price = db.Column(db.Float)
     hot_or_cold = db.Column(db.Enum(TemperatureEnum))
     category = db.Column(db.Enum(CategoryEnum))
+    # TODO: convert ingredients to list, skipping for now to simplify testing
     ingredients = db.Column(db.String)
     order_items = db.relationship("OrderItem", backref="dish")

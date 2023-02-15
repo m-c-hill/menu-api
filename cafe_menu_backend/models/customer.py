@@ -1,3 +1,7 @@
+"""
+Model for customers ordering from the menu
+"""
+
 from cafe_menu_backend.extensions import db
 
 
