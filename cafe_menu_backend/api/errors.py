@@ -8,4 +8,9 @@ def register_error_handlers(app):
 
     @app.errorhandler(422)
     def unprocessable_entity(error):
-        return jsonify({"success": False, "error": 422, "message": "Unprocessable entity"}), 422
+        return (
+            jsonify(
+                {"success": False, "error": 422, "message": "Unprocessable entity"}
+            ),
+            422,
+        )

@@ -1,5 +1,5 @@
 def test_get_order_details(client, order_one):
-    response = client.patch("api/v1.0/orders/1")
+    response = client.get("api/v1.0/orders/1")
     response_json = response.get_json()
 
     assert response.status_code == 200
@@ -8,7 +8,7 @@ def test_get_order_details(client, order_one):
 
 
 def test_get_order_details_raises_not_found(client):
-    response = client.patch("api/v1.0/orders/100")
+    response = client.get("api/v1.0/orders/100")
     response_json = response.get_json()
 
     assert response.status_code == 404
@@ -17,7 +17,7 @@ def test_get_order_details_raises_not_found(client):
 
 
 def test_place_order(client, new_order, new_order_response):
-    response = client.post("api/v1.0/orders/1", new_order)
+    response = client.post("api/v1.0/orders", new_order)
     response_json = response.get_json()
 
     assert response.status_code == 201

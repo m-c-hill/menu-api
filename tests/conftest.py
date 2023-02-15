@@ -2,8 +2,8 @@ import pytest
 
 from cafe_menu_backend.app import create_app
 from cafe_menu_backend.extensions import db
-from .insert_test_data import insert_test_data
 
+from .insert_test_data import insert_test_data
 
 # ================================
 #  Mock flask app and client

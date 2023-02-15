@@ -67,4 +67,5 @@ def insert_test_data():
     order.order_items.append(order_item_2)
     order.order_items.append(order_item_3)
 
+    db.session.add_all([order, order_item_1, order_item_2, order_item_3])
     db.session.commit()

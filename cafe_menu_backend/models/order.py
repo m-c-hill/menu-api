@@ -3,8 +3,9 @@ Model for orders placed using the menu. Order items hold a specified quantity of
 containing any number of order items.
 """
 
-from cafe_menu_backend.extensions import db
 from sqlalchemy.sql import func
+
+from cafe_menu_backend.extensions import db
 
 
 class Order(db.Model):
@@ -19,6 +20,17 @@ class Order(db.Model):
     order_fulfilled = db.Column(db.Boolean, default=False)
     order_items = db.relationship("OrderItem", backref="order")
 
+    def to_dict(self) -> dict:
+        return {
+            "customer_id": self.customer_id,
+            "created_at": self.created_at,
+            "total_price": self.total_price,
+            "payment_complete": self.payment_complete,
+            "order_cancelled": self.order_cancelled,
+            "order_fulfilled": self.order_fulfilled,
+            "order_items": [item.to_dict() for item in self.order_items],
+        }
+
 
 class OrderItem(db.Model):
     __tablename__ = "order_item"
@@ -27,3 +39,11 @@ class OrderItem(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey("order.id"))
     quantity = db.Column(db.Integer)
     dish_id = db.Column(db.Integer, db.ForeignKey("dish.id"))
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "quantity": self.quantity,
+            "dish_id": self.dish_id,
+            "dish_name": self.dish.name,
+        }

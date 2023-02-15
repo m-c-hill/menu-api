@@ -1,7 +1,7 @@
 from flask import abort, jsonify, request
 
-from cafe_menu_backend.models import Dish, CategoryEnum
 from cafe_menu_backend.extensions import db
+from cafe_menu_backend.models import CategoryEnum, Dish
 
 
 def get_all_dishes():
@@ -100,7 +100,7 @@ def delete_dish(dish_id: int):
     Remove a dish from the cafe menu
     """
     dish = Dish.query.filter_by(id=dish_id).one_or_none()
-    
+
     if dish is None:
         abort(404)
 
