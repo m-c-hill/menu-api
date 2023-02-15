@@ -24,7 +24,7 @@ def test_get_dish_list_from_menu_by_category_raises_not_found(client):
 
     assert response.status_code == 404
     assert response_json["success"] == False
-    assert response_json["message"] == "This category does not exist."
+    assert response_json["message"] == "Not found"
 
 
 def test_get_dish_by_id_from_menu(client, pizza):
@@ -42,7 +42,7 @@ def test_get_dish_by_id_from_menu_raises_not_found(client):
 
     assert response.status_code == 404
     assert response_json["success"] == False
-    assert response_json["message"] == "This dish does not exist."
+    assert response_json["message"] == "Not found"
 
 
 def test_add_dish_to_menu(client, new_dish):
@@ -51,7 +51,7 @@ def test_add_dish_to_menu(client, new_dish):
 
     assert response.status_code == 404
     assert response_json["success"] == False
-    assert response_json["message"] == "This dish does not exist."
+    assert response_json["message"] == "Not found"
 
 
 def test_delete_dish_from_menu(client, all_dishes):
@@ -60,7 +60,7 @@ def test_delete_dish_from_menu(client, all_dishes):
 
     assert response.status_code == 404
     assert response_json["success"] == False
-    assert response_json["message"] == "This dish does not exist."
+    assert response_json["message"] == "Not found"
 
     # Check the dish has actually been removed
     response = client.delete("api/v1.0/dishes/")
@@ -79,4 +79,4 @@ def test_delete_dish_from_menu_raises_not_found(client):
 
     assert response.status_code == 404
     assert response_json["success"] == False
-    assert response_json["message"] == "This dish does not exist."
+    assert response_json["message"] == "Not found"

@@ -13,7 +13,7 @@ def test_get_order_details_raises_not_found(client):
 
     assert response.status_code == 404
     assert response_json["success"] == False
-    assert response_json["message"] == "This order does not exist."
+    assert response_json["message"] == "Not found"
 
 
 def test_place_order(client, new_order, new_order_response):
